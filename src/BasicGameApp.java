@@ -23,8 +23,10 @@ public class BasicGameApp implements Runnable {
     //You can set their initial values too
     Character fish;
     Character shark;
+    Character hook;
 
     boolean fishvsshark = false;
+    boolean hookvsfish = false;
 
     Image backgroundPic;
 
@@ -65,6 +67,10 @@ public class BasicGameApp implements Runnable {
         shark = new Character(200, 400,3,0,200,200);
         shark.name = "Shark";
         shark.pic = Toolkit.getDefaultToolkit().getImage("shark.png");
+
+        hook = new Character(0,0,3,3,50,50);
+        hook.name = "Hook";
+        hook.pic = Toolkit.getDefaultToolkit().getImage("hook.png");
     } // end BasicGameApp constructor
 
 
@@ -82,6 +88,7 @@ public class BasicGameApp implements Runnable {
             collide();
             shark.wrap();
             fish.move();
+            hook.move();
             render();  // paint the graphics
             pause(10); // sleep for 10 ms
         }
@@ -92,6 +99,7 @@ public class BasicGameApp implements Runnable {
       //  shark.printInfo();
         fish.move();
 
+        hook.move();
         //fish.printInfo();
         //call the move() code for each object
     }
@@ -109,10 +117,13 @@ public class BasicGameApp implements Runnable {
         g.drawImage(backgroundPic, 0, 0, WIDTH, HEIGHT, null);
         g.drawImage(shark.pic, shark.xpos, shark.ypos, shark.width, shark.height, null);
         g.drawImage(fish.pic, fish.xpos, fish.ypos, fish.width, fish.height, null);
+        g.drawImage(hook.pic, hook.xpos, hook.ypos, hook.width, hook.height, null);
         g.setColor(Color.MAGENTA);
         g.drawRect(fish.hitbox.x, fish.hitbox.y, fish.hitbox.width, fish.hitbox.height);
         g.setColor(Color.MAGENTA);
         g.drawRect(shark.hitbox.x, shark.hitbox.y, shark.hitbox.width, shark.hitbox.height);
+        g.setColor(Color.MAGENTA);
+        g.drawRect(hook.hitbox.x, hook.hitbox.y, hook.hitbox.width, hook.hitbox.height);
 
 
         g.dispose();
@@ -127,6 +138,14 @@ public class BasicGameApp implements Runnable {
         }
         if (shark.hitbox.intersects(fish.hitbox) == false) {
             fishvsshark = false;
+        }
+        if(hook.hitbox.intersects(fish.hitbox) == true && hookvsfish == false){
+            hookvsfish = true;
+            fish.dx = -fish.dx;
+            fish.dy = -fish.dy;
+        }
+        if (hook.hitbox.intersects(fish.hitbox) == false) {
+            hookvsfish = false;
         }
 
     }
