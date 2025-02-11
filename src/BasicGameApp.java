@@ -27,6 +27,7 @@ public class BasicGameApp implements Runnable {
 
     boolean fishvsshark = false;
     boolean hookvsfish = false;
+    boolean hookvsshark = false;
 
     Image backgroundPic;
 
@@ -148,6 +149,13 @@ public class BasicGameApp implements Runnable {
             hookvsfish = false;
         }
 
+        if (hook.hitbox.intersects(shark.hitbox) == true && hookvsshark == false) {
+            hook.width = hook.width + 5;
+            hook.height = hook.height + 5;
+        }
+        if (hook.hitbox.intersects(shark.hitbox) == false) {
+            hookvsshark = false;
+        }
     }
 
     //Pauses or sleeps the computer for the amount specified in milliseconds
