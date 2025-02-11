@@ -150,8 +150,16 @@ public class BasicGameApp implements Runnable {
         }
 
         if (hook.hitbox.intersects(shark.hitbox) == true && hookvsshark == false) {
-            hook.width = hook.width + 5;
-            hook.height = hook.height + 5;
+            hook.width = hook.width + 25;
+            hook.height = hook.height + 25;
+            hookvsshark = true;
+            if(hook.width >= 99 && hook.width <= 174) {
+                shark.dx = 0;
+                shark.dy = 3;
+            } else if(hook.width >=175) {
+                shark.dx = 3;
+                shark.dy = 0;
+            }
         }
         if (hook.hitbox.intersects(shark.hitbox) == false) {
             hookvsshark = false;
