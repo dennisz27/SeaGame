@@ -137,30 +137,38 @@ public class BasicGameApp implements Runnable {
             fish.dx = -fish.dx;
             fish.dy = -fish.dy;
         }
+
         if (shark.hitbox.intersects(fish.hitbox) == false) {
             fishvsshark = false;
         }
+        // makes fish change direction on contact with hook
         if(hook.hitbox.intersects(fish.hitbox) == true && hookvsfish == false){
             hookvsfish = true;
             fish.dx = -fish.dx;
             fish.dy = -fish.dy;
         }
+        // makes fish and hook interesect false
         if (hook.hitbox.intersects(fish.hitbox) == false) {
             hookvsfish = false;
         }
 
         if (hook.hitbox.intersects(shark.hitbox) == true && hookvsshark == false) {
-            hook.width = hook.width + 25;
-            hook.height = hook.height + 25;
+            if(hook.width < 226) {
+                hook.width = hook.width + 25;
+                hook.height = hook.height + 25;
+            }
             hookvsshark = true;
-            if(hook.width >= 99 && hook.width <= 174) {
+            if(hook.width >= 99 && hook.width <= 149) {
                 shark.dx = 0;
                 shark.dy = 3;
-            } else if(hook.width >=175) {
+            } else if(hook.width >=150) {
                 shark.dx = 3;
                 shark.dy = 0;
             }
         }
+
+
+
         if (hook.hitbox.intersects(shark.hitbox) == false) {
             hookvsshark = false;
         }
